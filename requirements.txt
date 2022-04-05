@@ -5,4 +5,5 @@ pyvis==0.1.9
 streamlit==0.83.0
 community
 python_louvain
+numpy
 

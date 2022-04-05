@@ -1,7 +1,8 @@
-import streamlit as st
+import numpy as np
 import pandas as pd
-from pyvis.network import Network
 import networkx as nx
+import streamlit as st
+from pyvis.network import Network
 from community import community_louvain
 import streamlit.components.v1 as components
 
