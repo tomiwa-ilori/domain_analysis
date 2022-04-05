@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 from pyvis.network import Network
 import networkx as nx
-#from community import community_louvain
+from community import community_louvain
+import community
 import streamlit.components.v1 as components
 
 # funtion to select grapgh algorithm
@@ -47,6 +48,40 @@ else:
     data_select = data_select.reset_index(drop=True)
 
     G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
+
+    partition_object = community.best_partition(G)
+
+    values = [partition_object.get(node) for node in G.nodes()]
+
+    color_list = ["#0157a1", "#77f431", "#000cb3", "#e4ff3f",
+        "#6213c6", "#1abd00", "#ab39eb", "#00c932", "#e232e8",
+        "#2a9b00", "#975bff", "#aecf00", "#01119c", "#ffe02b",
+        "#5565ff", "#c1ff73", "#a5009f", "#00ca5f", "#ff64e7",
+        "#43ffa5", "#f60095", "#76ffa5", "#ff50c9", "#a0ffa4",
+        "#3a0067", "#f6ff7f", "#00216e", "#e5bc00", "#e378ff",
+        "#aab000", "#828bff", "#ff7910", "#0281e2", "#e08900",
+        "#019def", "#ff3f2b", "#01e0d3", "#da0120", "#03bde6",
+        "#d04b00", "#819cff", "#648e00", "#ff46ad", "#018436",
+        "#b40078", "#01a165", "#ca0067", "#3d7900", "#640063",
+        "#f2ffa5", "#16003e", "#f3ffbe", "#0f002d", "#ffd580",
+        "#000c26", "#ff6b47", "#01ad92", "#ff5552", "#85e2ff",
+        "#b5002d", "#b4ffec", "#8e0023", "#e4ffe9", "#82004f",
+        "#667000", "#feaaff", "#284f00", "#b8a8ff", "#8d6d00",
+        "#8dbfff", "#724200", "#0174ae", "#ff4f70", "#00512a",
+        "#ff9acb", "#0f2a00", "#ffedfe", "#000a05", "#f9fffd",
+        "#280e00", "#c9f1ff", "#6b001f", "#e3d2ff", "#571800",
+        "#ffdec2", "#003361", "#ff8a77", "#00353c", "#ff839a",
+        "#018093", "#ffb094", "#00506d", "#ffbeb9", "#371400",
+        "#342c00"]
+
+    color_list = color_list[0:len(set(values))]
+
+    color_dict = pd.Series(color_list, index=np.arange(0,len(set(values)))).to_dict()
+
+    for key, value in partition_object.items():
+        partition_object[key] = color_dict[value]
+
+    nx.set_node_attributes(g, partition_object, 'color')
 
     net = Network(height='400px', width='100%', bgcolor='#222222', font_color='white')
 
