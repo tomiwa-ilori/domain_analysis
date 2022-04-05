@@ -48,7 +48,7 @@ else:
 
     G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
 
-    net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white', directed=True)
+    net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
 
     net.force_atlas_2based(
                         gravity=-50,
@@ -113,7 +113,7 @@ else:
         #HtmlFile = open('pyvis_graph.html', 'r', encoding='utf-8')
 
         # Load HTML file in HTML component for display on Streamlit page
-    components.html(HtmlFile.read())
+    components.html(HtmlFile.read(), height=435)
 
     #create_graph("datasets/russian_domain_links.csv", buttons=False)
 
