@@ -34,7 +34,7 @@ domain_list = data['source'].unique()
 
 domain_list.sort()
 
-selected_domain = st.multiselect('Select drug(s) to visualize', domain_list)
+selected_domain = st.multiselect('Select domain(s) to visualize', domain_list)
 
     # set info message on initial site load
 if len(selected_domain) == 0:
@@ -49,6 +49,8 @@ else:
     G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
 
     net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
+
+    net.from_nx(G)
 
     net.force_atlas_2based(
                         gravity=-50,
