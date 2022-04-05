@@ -81,7 +81,7 @@ else:
     for key, value in partition_object.items():
         partition_object[key] = color_dict[value]
 
-    nx.set_node_attributes(g, partition_object, 'color')
+    nx.set_node_attributes(G, partition_object, 'color')
 
     net = Network(height='400px', width='100%', bgcolor='#222222', font_color='white')
 
