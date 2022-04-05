@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import pandas as pd
 from pyvis.network import Network
@@ -25,41 +23,41 @@ def cred_colour(credibility, cred_color="0efb02"):
         cred_color='f5fb02'
 
 # function to create graph data
-def create_graph(data_, alg="force", buttons=False, target_color="#1dbde6", 
-    edge_color="#595cff", source_shape="circle", target_shape="circle", cred_shape="triangle"):
+#def create_graph(data_, alg="force", buttons=False, target_color="#1dbde6", 
+    #edge_color="#595cff", source_shape="circle", target_shape="circle", cred_shape="triangle"):
 
-    st.title('Network Graph Visualization of Content Sharing across Domains')
+st.title('Network Graph Visualization of Content Sharing across Domains')
 
-    data = pd.read_csv(data_)
+data = pd.read_csv("datasets/russian_domain_links.csv")
 
-    domain_list = data['source'].unique()
+domain_list = data['source'].unique()
 
-    domain_list.sort()
+domain_list.sort()
 
-    selected_domain = st.multiselect('Select drug(s) to visualize', domain_list)
+selected_domain = st.multiselect('Select drug(s) to visualize', domain_list)
 
     # set info message on initial site load
-    if len(selected_domain) == 0:
-        st.text('Select at least 1 domain to begin')
+if len(selected_domain) == 0:
+    st.text('Select at least 1 domain to begin')
 
     # create network graph when a domain >= 1 is selected
-    else:
-        data_select = data.loc[data['source'].isin(selected_domain) | \
+else:
+    data_select = data.loc[data['source'].isin(selected_domain) | \
                         data['target'].isin(selected_domain)]
-        data_select = data_select.reset_index(drop=True)
+    data_select = data_select.reset_index(drop=True)
 
-        G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
+    G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
 
-        net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white', directed=True)
+    net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white', directed=True)
 
-        net.force_atlas_2based(
+    net.force_atlas_2based(
                         gravity=-50,
                         central_gravity=0.01,
                         spring_length=100,
                         spring_strength=0.08,
                         damping=0.4,
                         overlap=0
-        )
+    )
         
         #if buttons==True:
         #    net.width="75%"
@@ -101,23 +99,23 @@ def create_graph(data_, alg="force", buttons=False, target_color="#1dbde6",
           #  node['value'] = len((neighbor_map[node['id']]))
 
         # Save and read graph as HTML file (on Streamlit Sharing)
-        try:
-            path = '/tmp'
-            net.save_graph(f'{path}/pyvis_graph.html')
-            HtmlFile = open(f'{path}/pyvis_graph.html','r',encoding='utf-8')# Save and read graph as HTML file (locally)
-        except:
-            path = '/html_files'
-            net.save_graph(f'{path}/pyvis_graph.html')
-            HtmlFile = open(f'{path}/pyvis_graph.html','r',encoding='utf-8')
+    try:
+        path = '/tmp'
+        net.save_graph(f'{path}/pyvis_graph.html')
+        HtmlFile = open(f'{path}/pyvis_graph.html','r',encoding='utf-8')# Save and read graph as HTML file (locally)
+    except:
+        path = '/html_files'
+        net.save_graph(f'{path}/pyvis_graph.html')
+        HtmlFile = open(f'{path}/pyvis_graph.html','r',encoding='utf-8')
 
         # Save and read graph as HTML file (locally)
         #net.show('pyvis_graph.html')
         #HtmlFile = open('pyvis_graph.html', 'r', encoding='utf-8')
 
         # Load HTML file in HTML component for display on Streamlit page
-        components.html(HtmlFile.read())
+    components.html(HtmlFile.read())
 
-    create_graph("datasets/russian_domain_links.csv", buttons=False)
+    #create_graph("datasets/russian_domain_links.csv", buttons=False)
 
     #cred_colour(credibility, cred_color=cred_color)
     #graph_algorithm(net, alg=alg)
