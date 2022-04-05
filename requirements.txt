@@ -1,11 +1,6 @@
-community==1.0.0b1
 elasticsearch==7.13.4
 networkx==2.7.1
-notebook==6.4.10
-numpy==1.22.3
-packaging==21.3
 pandas==1.4.2
-python-louvain==0.16
 pyvis==0.1.9
 pyvis-network==0.0.6
 streamlit==1.8.1
