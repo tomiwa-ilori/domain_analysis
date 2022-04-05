@@ -3,7 +3,6 @@ import pandas as pd
 from pyvis.network import Network
 import networkx as nx
 from community import community_louvain
-import community
 import streamlit.components.v1 as components
 
 # funtion to select grapgh algorithm
@@ -49,7 +48,7 @@ else:
 
     G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
 
-    partition_object = community.best_partition(G)
+    partition_object = community_louvain.best_partition(G)
 
     values = [partition_object.get(node) for node in G.nodes()]
 
