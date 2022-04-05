@@ -48,7 +48,7 @@ else:
 
     G = nx.from_pandas_edgelist(data_select, 'source', 'target', 'number_links')
 
-    net = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
+    net = Network(height='400px', width='100%', bgcolor='#222222', font_color='white')
 
     net.from_nx(G)
 
