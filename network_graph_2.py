@@ -83,7 +83,7 @@ else:
 
     nx.set_node_attributes(G, partition_object, 'color')
 
-    net = Network(height='400px', width='100%', bgcolor='#222222', font_color='white')
+    net = Network(height='750px', width='100%', bgcolor='#222222', font_color='white')
 
     net.from_nx(G)
 
@@ -150,7 +150,7 @@ else:
         #HtmlFile = open('pyvis_graph.html', 'r', encoding='utf-8')
 
         # Load HTML file in HTML component for display on Streamlit page
-    components.html(HtmlFile.read(), height=435)
+    components.html(HtmlFile.read(), height=750)
 
     #create_graph("datasets/russian_domain_links.csv", buttons=False)
 
