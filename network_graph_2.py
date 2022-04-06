@@ -9,7 +9,7 @@ import streamlit.components.v1 as components
 
 st.title('Network Graph Visualization of Content Sharing across Domains')
 
-data = pd.read_csv('../datasets/domain_threshold.csv')
+data = pd.read_csv('datasets/domain_threshold.csv')
 
 domain_list = data['source_domain'].unique()
 
