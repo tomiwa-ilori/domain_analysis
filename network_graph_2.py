@@ -24,10 +24,10 @@ if len(selected_domain) == 0:
     # create network graph when a domain >= 1 is selected
 else:
     data_select = data.loc[data['source_domain'].isin(selected_domain) | \
-                        data['target_domian'].isin(selected_domain)]
+                        data['target_domain'].isin(selected_domain)]
     data_select = data_select.reset_index(drop=True)
 
-    G = nx.from_pandas_edgelist(data_select, 'source_domain', 'target_domian', 'size')
+    G = nx.from_pandas_edgelist(data_select, 'source_domain', 'target_domain', 'size')
 
     partition_object = community_louvain.best_partition(G)
 
